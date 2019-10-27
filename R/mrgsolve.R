@@ -487,6 +487,7 @@ do_mrgsim <- function(x,
                       skip_init_calc = FALSE,
                       ss_n = 500,
                       ss_fixed = FALSE,
+                      ss_tol_factor = 10,
                       ...) {
   
   x <- update(x,...,strict=TRUE)
@@ -561,6 +562,7 @@ do_mrgsim <- function(x,
   parin$verbose <- verbose
   parin$ss_fixed <- ss_fixed
   parin$ss_n <- ss_n
+  parin$ss_tol_factor <- ss_tol_factor
   parin$request <- Cmti(x)-1L
   
   if(tad && any(x@capture =="tad")) {

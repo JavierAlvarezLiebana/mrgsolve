@@ -232,6 +232,7 @@ void datarecord::steady_bolus(odeproblem* prob, LSODA& solver) {
   prob->rate_reset();
   bool warn = !prob->ss_fixed;
   int N_SS = prob->ss_n;  
+  double tol = prob->ss_tol_factor*solver.Rtol;
   double tfrom = 0.0;
   double tto = 0.0;
   
@@ -255,8 +256,8 @@ void datarecord::steady_bolus(odeproblem* prob, LSODA& solver) {
     int ngood = 0;
     for(int j=0; j < prob->neq(); ++j) {
       diff = fabs(prob->y(j) - last[j]);
-      err = solver.Rtol * fabs(prob->y(j)) + solver.Atol;
-      if(diff < err ) ++ngood;
+      err = tol * (fabs(prob->y(j)) + solver.Atol);
+      if(diff < err) ++ngood;
       last[j] = prob->y(j);
     } 
     if(ngood == prob->neq()) {

@@ -202,6 +202,7 @@ public:
   int Istate; ///< istate value
   bool ss_fixed;
   int ss_n;
+  double ss_tol_factor;
 
   std::vector<double> R0; ///< acutal current infusion rate
   std::vector<unsigned int> infusion_count; ///< number of active infusions
